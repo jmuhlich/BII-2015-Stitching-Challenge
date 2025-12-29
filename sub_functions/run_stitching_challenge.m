@@ -220,6 +220,7 @@ for level = 1:numel(level_fldrs)
     nb = ax.YTick(end) + (ax.YTick(end) - ax.YTick(end-1));
     set(gca, 'ylim', [0 nb])
   end
+  ax.XTickLabels = all_participants;
   set(gca, 'fontsize',font_size)
 
 
@@ -230,6 +231,8 @@ for level = 1:numel(level_fldrs)
   xlabel('Participant')
   ylabel('Percent Size Error')
   ylim([-nbB,nbB]);
+  ax = gca;
+  ax.XTickLabels = all_participants;
   set(gca, 'fontsize',font_size)
 
 
@@ -244,6 +247,7 @@ for level = 1:numel(level_fldrs)
     nb = ax.YTick(end) + (ax.YTick(end) - ax.YTick(end-1));
     set(gca, 'ylim', [0 nb])
   end
+  ax.XTickLabels = all_participants;
   set(gca, 'fontsize',font_size)
 
 
@@ -258,6 +262,7 @@ for level = 1:numel(level_fldrs)
     nb = ax.YTick(end) + (ax.YTick(end) - ax.YTick(end-1));
     set(gca, 'ylim', [0 nb])
   end
+  ax.XTickLabels = all_participants;
   set(gca, 'fontsize',font_size)
 
   I = getframe(mainFH);
