@@ -71,7 +71,7 @@ for i = 1:numel(imgs)
   colNum = str2double(match{1});
 
   % create the proper filename to be loaded off disk
-  imgs{i} = sprintf('img_Cy5_r%03d_c%03d.tif',rowNum,colNum);
+  imgs{i} = sprintf('img_w1_r%03d_c%03d_t000000000_Cy5_000.tif',rowNum,colNum);
 end
 
 % get size of an individual image tile
