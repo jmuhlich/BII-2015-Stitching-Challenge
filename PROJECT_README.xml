@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!-- 
+This document contains a project description
+-->
+<project id="BII-2015-Stitching-Challenge">
+	<description>This contains all of the Matlab code related to performing the Image Stitching challenge for the Bio-Image-Informatics conference held at NIST October 2015.
+	</description>
+	<documentation>
+      None
+	</documentation>
+	<installation>
+		<prerequisites>
+			<prerequisite name="MATLAB 8.6.0.267246 (R2015b)">
+				<website>http://www.mathworks.com/products/matlab/</website>
+				<version>8.6.0.267246 (R2015b) or later</version>
+			</prerequisite>
+		</prerequisites>
+	</installation>
+	<miscellaneous>
+		<software_test>
+			None
+		</software_test>
+		<development_OSplatform>
+			Windows 7 (64 bit)
+		</development_OSplatform>
+	</miscellaneous>
+	<compilation>
+		<compilation_instructions>
+			None             	
+		</compilation_instructions>
+		<compilation_configuration>
+			None
+		</compilation_configuration>
+		<compilation_engine>
+			MATLAB 8.6.0.267246 (R2015b)
+		</compilation_engine>
+		<dependencies>
+			None
+		</dependencies>	 
+		<instructions>
+			None
+		</instructions>
+	</compilation>
+	<execution>
+		<run_time_engine>
+			MATLAB 8.6.0.267246 (R2015b)
+		</run_time_engine>
+		<main_test_class>
+			<name>
+				./script_run_stitching_challenge.m
+			</name>
+			<arguments>
+				None
+			</arguments>             	
+			<test_files>
+				None
+			</test_files>  
+			<dependencies>
+				./sub_functions
+				./misc_code
+			<dependencies>	 
+		</main_test_class>
+	</execution>
+  </project>
