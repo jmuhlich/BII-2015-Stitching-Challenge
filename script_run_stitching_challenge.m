@@ -9,5 +9,5 @@
 % script_run_stitching_challenge
 addpath([pwd filesep 'sub_functions']);
 
-filepath = 'C:\majurski\image-data\BII_Stitching_Challenge\';
+filepath = '/path/to/BII_Stitching_Challenge';
 run_stitching_challenge(filepath);
