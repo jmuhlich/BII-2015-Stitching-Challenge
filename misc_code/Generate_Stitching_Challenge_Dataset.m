@@ -22,7 +22,7 @@ for i = 1:numel(i_vals)
     fns = sprintf('img_w1_r%03d_c%03d_t000000000_Phase_000.tif',i_vals(i),j_vals(j));
     fnd = sprintf('img_Phase_r%03d_c%03d.tif',i,j);
     copyfile([fp fns],[ofp 'Level1_Image_Tiles' filesep fnd]);
-    
+
     % copy both the phase and Cy5 because only the Cy5 can be used to generate stitching accuracy results
     fns = sprintf('img_w1_r%03d_c%03d_t000000000_Cy5_000.tif',i_vals(i),j_vals(j));
     fnd = sprintf('img_Cy5_r%03d_c%03d.tif',i,j);
@@ -64,5 +64,3 @@ for i = 1:numel(i_vals)
     copyfile([fp fns],[ofp 'Level3_Image_Tiles' filesep fnd]);
   end
 end
-
-

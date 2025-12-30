@@ -19,20 +19,20 @@ if islogical(S)
     bb(1,3) = min(jj);
     bb(1,4) = max(jj);
 else
-    
+
     % Get image size
     [m,n] = size(S);
-    
+
     stats = regionprops(S, 'PixelIdxList');
     bb = NaN(numel(stats),4); % bb(k,:) = [i_min i_max j_min j_max]
     for k = 1:numel(stats)
-				% if a label is missing from the S image, skip its empty element in stats
+        % if a label is missing from the S image, skip its empty element in stats
         if isempty(stats(k).PixelIdxList), continue, end
-				
-				% convert the list of pixel locations from linear indexing to row-column
+
+        % convert the list of pixel locations from linear indexing to row-column
         [ii,jj] = ind2sub([m,n],stats(k).PixelIdxList);
-        
-				% find the extents of the row-column pixel locations
+
+        % find the extents of the row-column pixel locations
         bb(k,1) = min(ii);
         bb(k,2) = max(ii);
         bb(k,3) = min(jj);
@@ -41,4 +41,3 @@ else
 end
 
 end
-

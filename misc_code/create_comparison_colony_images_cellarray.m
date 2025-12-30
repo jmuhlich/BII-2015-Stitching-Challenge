@@ -23,8 +23,8 @@ for i = 1:nb_cell
     A = S(bounding_box(i,1):bounding_box(i,2), bounding_box(i,3):bounding_box(i,4)) == i;
     B = I(bounding_box(i,1):bounding_box(i,2), bounding_box(i,3):bounding_box(i,4));
     B(~A) = 0;
-    
-    
+
+
     stitched_raw_images{i} = B;
     stitched_seg_images{i} = A;
 end

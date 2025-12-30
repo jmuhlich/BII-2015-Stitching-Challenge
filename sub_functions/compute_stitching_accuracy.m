@@ -72,7 +72,7 @@ for i = 1:nb_stitched_colonies
   else
     % Equalize images
     [stitched_raw_images{i},stitched_seg_images{i}] = equalize_dimensions(nb_rows,nb_cols,stitched_raw_images{i},stitched_seg_images{i});
-    
+
     stitched_raw_images{i}(~stitched_seg_images{i}) = 0; % Make sure only the colony of interest intensity pixels are in the FOV
     if ~stitched_seg_images{i}(mid_i,mid_j)
       discard_stitched_seg_images(i) = 1;
@@ -173,4 +173,3 @@ total_area_error = (stitched_area(stitched_colony_ind) - ref_area(ref_colony_ind
 
 
 end
-

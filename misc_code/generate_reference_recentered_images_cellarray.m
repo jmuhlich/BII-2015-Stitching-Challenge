@@ -41,7 +41,7 @@ nb_stitched_colonies = numel(stitched_raw_images);
 
 
 % ************************************************************************
-% CODE FROM compute_stitching_accuracy 
+% CODE FROM compute_stitching_accuracy
 % ************************************************************************
 
 discard_stitched_seg_images = false(nb_stitched_colonies,1);
@@ -97,19 +97,19 @@ Stc = repmat(stitched_perimeter,1,nb_ref_colonies);
 perimeter_error = abs(Ref - Stc);
 perimeter_error = perimeter_error/max(perimeter_error(:));
 
-% Compute eccentricity error 
+% Compute eccentricity error
 Ref = repmat(ref_eccentricity',nb_stitched_colonies,1);
 Stc = repmat(stitched_eccentricity,1,nb_ref_colonies);
 eccentricity_error = abs(Ref - Stc);
 eccentricity_error = eccentricity_error/max(eccentricity_error(:));
 
-% Compute MajorAxisLength error 
+% Compute MajorAxisLength error
 Ref = repmat(ref_MajorAxisLength',nb_stitched_colonies,1);
 Stc = repmat(stitched_MajorAxisLength,1,nb_ref_colonies);
 MajorAxisLength_error = abs(Ref - Stc);
 MajorAxisLength_error = MajorAxisLength_error/max(MajorAxisLength_error(:));
 
-% Compute MinorAxisLength error 
+% Compute MinorAxisLength error
 Ref = repmat(ref_MinorAxisLength',nb_stitched_colonies,1);
 Stc = repmat(stitched_MinorAxisLength,1,nb_ref_colonies);
 MinorAxisLength_error = abs(Ref - Stc);
@@ -134,7 +134,7 @@ cross_corr = N./D;
 % Compute similarity matrix
 similarity_matrix = eccentricity_error + MajorAxisLength_error + MinorAxisLength_error - cross_corr;
 
-% Assign Correspondences: correspondence_vector has a size = nb_ref_colonies and each row has the index of the corresponding stitched colony. 
+% Assign Correspondences: correspondence_vector has a size = nb_ref_colonies and each row has the index of the corresponding stitched colony.
 % Example: if correspondence_vector(5) = 22 ==> ref_colony 5 is the same as stitched colony 22
 correspondence_vector = hungarian_optimization(similarity_matrix, zeros(nb_ref_colonies,1));
 
@@ -158,7 +158,7 @@ computed_centroid_y = stitched_colony_positions(stitched_colony_ind,2);
 
 
 % ************************************************************************
-% END CODE FROM compute_stitching_accuracy 
+% END CODE FROM compute_stitching_accuracy
 % ************************************************************************
 
 
@@ -180,7 +180,7 @@ measured_centroid_y = ref_colony_positions(:,2);
 
 
 buff = -2;
-% remove colonies 
+% remove colonies
 mv = max(computed_centroid_x(:));
 idx1 = (measured_centroid_x) > (mv-buff);
 
@@ -210,4 +210,3 @@ ref_seg_images(idx1|idx2|idx3|idx4, :) = [];
 
 
 end
-

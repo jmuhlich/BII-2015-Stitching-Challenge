@@ -20,7 +20,7 @@ x = nan; y = nan; z = nan;
 label = nan;
 line = fgetl(fh);
 while ischar(line)
-    
+
     if ~isempty(strfind(line, 'GRID_COL'))
         idx = strfind(line, 'GRID_COL');
         col = str2double(line(idx+11:end-1));
@@ -51,19 +51,19 @@ while ischar(line)
         idx = strfind(line, 'LABEL');
         label = line(idx+9:end-2);
     end
-    
+
     if ~isnan(x) && ~isnan(y) && ~isnan(z) && ~isnan(row) && ~isnan(col) && ischar(label)
         X(row,col) = x;
         Y(row,col) = y;
         Z(row,col) = z;
         Labels{row,col} = label;
-        
+
         row = nan; col = nan;
         x = nan; y = nan; z = nan;
         label = nan;
     end
-    
-   line = fgetl(fh); 
+
+   line = fgetl(fh);
 end
 
 fclose(fh);

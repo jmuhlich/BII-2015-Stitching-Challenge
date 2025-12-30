@@ -61,9 +61,3 @@ S = padarray(S,[pady,padx], 0, 'post');
 
 
 end
-
-
-
-
-
-

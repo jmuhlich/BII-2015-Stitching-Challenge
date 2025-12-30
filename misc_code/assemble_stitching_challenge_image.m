@@ -7,7 +7,7 @@
 
 
 
-function stitched_image = assemble_stitching_challenge_image(img_fp, csv_fp, level) 
+function stitched_image = assemble_stitching_challenge_image(img_fp, csv_fp, level)
 
 imgs = cell(0,0);
 X = [];
@@ -21,7 +21,7 @@ while ischar(line)
   imgs = vertcat(imgs, parts(1));
   X = vertcat(X, str2double(parts{2}));
   Y = vertcat(Y, str2double(parts{3}));
-  
+
   line = fgetl(fh);
 end
 fclose(fh);
@@ -50,12 +50,12 @@ for i = 1:numel(imgs)
   rmatch = rmatch{1};
   cmatch = regexp(fn,colPat,'match');
   cmatch = cmatch{1};
-  
+
   match = regexp(rmatch, '[0-9]+', 'match');
   rowNum = str2double(match{1});
   match = regexp(cmatch, '[0-9]+', 'match');
   colNum = str2double(match{1});
-  
+
   imgs{i} = sprintf('img_Cy5_r%03d_c%03d.tif',rowNum,colNum);
 end
 

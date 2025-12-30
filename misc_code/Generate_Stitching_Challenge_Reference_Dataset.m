@@ -19,7 +19,7 @@ fldrs = {'Level_1','Level_2','Level_3'};
 for f = 1:numel(fldrs)
   cur_fp = [fp fldrs{f} filesep];
   ofp = [cur_fp 'Reference_Recentered_Images' filesep];
-  
+
   if ~exist(ofp, 'dir')
 
     I = imread([cur_fp 'evaluation_data\MIST.tif']);
@@ -44,6 +44,6 @@ for f = 1:numel(fldrs)
       fclose(fh);
     end
   end
-  
-  
+
+
 end

@@ -7,7 +7,7 @@
 
 
 
-% Recursive function that searches for best fitted correspondence solution between colonies 
+% Recursive function that searches for best fitted correspondence solution between colonies
 function [correspondence_vector, cost_matrix] = hungarian_optimization(cost_matrix, correspondence_vector)
 
 % Check is there is still any tracks that can be assigned. The stopping condition

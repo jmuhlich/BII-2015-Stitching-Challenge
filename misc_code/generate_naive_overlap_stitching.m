@@ -16,14 +16,14 @@ ys = [10,10,24];
 
 for level = 1:numel(levels)
   tfp = [fp levels{level} filesep 'Image_Tiles_Global_Positions' filesep];
-  
+
   overlap = 10;
   imgH = 1040;
   imgW = 1392;
   deltaH = (1-(overlap/100))*imgH;
   deltaW = (1-(overlap/100))*imgW;
-  
-  
+
+
   fh = fopen([tfp 'Naive.csv'],'w');
   i_vals = 1:ys(level);
   j_vals = 1:xs(level);

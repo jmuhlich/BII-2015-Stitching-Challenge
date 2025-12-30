@@ -10,56 +10,56 @@ levels = {'Level_1','Level_2','Level_3'};
 
 for l = 1:numel(levels)
   cfp = [fp levels{l} filesep 'cuda' filesep];
-  
+
   fhi = fopen([cfp 'img-global-positions-0.txt'],'r');
   fho = fopen([cfp 'MIST.csv'],'w');
-  
+
   line = fgetl(fhi);
   while ischar(line)
     parts = strsplit(line, ';');
     fn = parts{1};
     fn = fn(7:end);
-    
+
     position = parts{3};
     position = position(13:end-1);
     pos_parts = strsplit(position,',');
     x = str2double(pos_parts{1});
     y = str2double(pos_parts{2}(2:end));
-    
+
     fprintf(fho, '%s, %g, %g\n', fn, x, y);
-    
+
     line = fgetl(fhi);
   end
   fclose(fhi);
   fclose(fho);
-  
-  
-  
-  
-%   
+
+
+
+
+%
 %   cfp = [fp levels{l} filesep 'cuda2' filesep];
-%   
+%
 %   fhi = fopen([cfp 'img-global-positions-0.txt'],'r');
 %   fho = fopen([cfp 'MIST2.csv'],'w');
-%   
+%
 %   line = fgetl(fhi);
 %   while ischar(line)
 %     parts = strsplit(line, ';');
 %     fn = parts{1};
 %     fn = fn(7:end);
-%     
+%
 %     position = parts{3};
 %     position = position(13:end-1);
 %     pos_parts = strsplit(position,',');
 %     x = str2double(pos_parts{1});
 %     y = str2double(pos_parts{2}(2:end));
-%     
+%
 %     fprintf(fho, '%s, %g, %g\n', fn, x, y);
-%     
+%
 %     line = fgetl(fhi);
 %   end
 %   fclose(fhi);
 %   fclose(fho);
-  
-  
+
+
 end

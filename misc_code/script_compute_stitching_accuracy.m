@@ -20,7 +20,7 @@ fldrs = {'Level_1','Level_2','Level_3'};
 for f = 1:numel(fldrs)
   plate_fp = [fp  fldrs{f} filesep];
   disp(['Dataset: ' fldrs{f}]);
-  
+
   % discover participants stitched images that need to be evaluated
   participants = dir([plate_fp 'evaluation_data' filesep '*.tif']);
   participants = {participants.name}';
@@ -28,42 +28,39 @@ for f = 1:numel(fldrs)
   for i = 1:numel(participants)
     participants{i} = participants{i}(1:end-4);
   end
-  
+
   for p = 1:numel(participants)
     method = participants{p};
     disp(['Evaluating: ' method]);
-    
+
     ofp = [plate_fp 'Stitching_Error' filesep];
     if ~exist([ofp method '.mat'],'file')
       I = imread([plate_fp 'evaluation_data' filesep method '.tif']);
       S = segment_stitched_plate(I, threshold, min_object_size);
-      
+
       [stitched_raw_images, stitched_seg_images, stitched_colony_positions] = create_comparison_colony_images_cellarray(I,S, p2m);
       clear I S;
-      
+
       rfp = [plate_fp 'Reference_Recentered_Images' filesep];
       [ref_raw_images, ref_seg_images, ref_colony_positions] = load_reference_recentered_images(rfp);
-      
+
       % ref_raw_images:     the individual recentered colonies from the
       % ref_seg_images:     the individual segmented recentered colonies from the reference
       % ref_colony_positions:     the individual colony stage locations
       % stitched_raw_images:     the colony images from the comparison stithced image
       % stitched_seg_images:     The colony segmented images from the comparison stitched image
       % stitched_colony_positions:     The comparison stitched image colony locations
-      
-      
+
+
       [FN,FP,total_area_error,distance_error, ref_colony_positions, ref_raw_images, ref_seg_images, ref_colony_ind,...
         stitched_colony_positions, stitched_raw_images, stitched_seg_images, stitched_colony_ind, R] = compute_stitching_accuracy2(ref_raw_images,...
         ref_seg_images, ref_colony_positions, stitched_raw_images, stitched_seg_images, stitched_colony_positions);
-      
+
       if ~exist(ofp, 'dir')
         mkdir(ofp);
       end
       save([ofp method '.mat']);
-      
+
     end
   end
 end
-
-
-

@@ -7,7 +7,7 @@
 
 
 
-function stitched_image = assemble_stitching_challenge_image(Image_Tiles_fldr, global_positions_csv_filepath, level) 
+function stitched_image = assemble_stitching_challenge_image(Image_Tiles_fldr, global_positions_csv_filepath, level)
 
 % init the positions and image name data
 imgs = cell(0,0);
@@ -25,7 +25,7 @@ while ischar(line)
   % record the global x and y coordinates
   X = vertcat(X, str2double(parts{2}));
   Y = vertcat(Y, str2double(parts{3}));
-  
+
   % get the next line
   line = fgetl(fh);
 end
@@ -62,14 +62,14 @@ for i = 1:numel(imgs)
   % find the column number
   cmatch = regexp(fn,colPat,'match');
   cmatch = cmatch{1};
-  
+
   % convert the row number to double
   match = regexp(rmatch, '[0-9]+', 'match');
   rowNum = str2double(match{1});
   % convert the column number to double
   match = regexp(cmatch, '[0-9]+', 'match');
   colNum = str2double(match{1});
-  
+
   % create the proper filename to be loaded off disk
   imgs{i} = sprintf('img_Cy5_r%03d_c%03d.tif',rowNum,colNum);
 end

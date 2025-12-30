@@ -28,4 +28,3 @@ img_fp = [fp 'Level3_Image_Tiles' filesep];
 csv_fp = [fp 'submissions' filesep 'Changming_Sun' filesep 'CSun-global-positions-L3-result1.csv'];
 I = assemble_stitching_challenge_image(img_fp, csv_fp);
 imwrite(I,[fp 'submissions' filesep 'Changming_Sun' filesep 'Level3.tif']);
-

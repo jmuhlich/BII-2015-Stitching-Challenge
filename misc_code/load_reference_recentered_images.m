@@ -21,13 +21,13 @@ for i = 1:nb_ref_colonies
   fn = imgs{i};
   ref_raw_images{i} = imread([fp fn]);
   S = stitching_eval_segmentation_procedure(ref_raw_images{i});
-  
+
   [m,n] = size(ref_raw_images{i});
   k = S(round(m/2),round(n/2));
   if k > 0
     ref_seg_images{i} = S;
     n = str2double(fn(9:end-4));
-    
+
     fh = fopen([fp sprintf('img_coords_%08d.txt',n)],'r');
     line = fgetl(fh);
     stageX = line(9:end);

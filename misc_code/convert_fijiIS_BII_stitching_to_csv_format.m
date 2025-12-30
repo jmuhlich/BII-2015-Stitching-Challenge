@@ -14,13 +14,13 @@ levels = {'Level_1','Level_2','Level_3'};
 for level = 1:numel(levels)
   sfp = [fp levels{level} filesep 'Image_Tiles_Global_Positions' filesep];
   if exist([sfp 'TileConfiguration.registered.txt'],'file')
-    
+
     fh_i = fopen([sfp 'TileConfiguration.registered.txt'],'r');
     fh_o = fopen([sfp 'Fiji-IS-global-positions.csv'],'w');
-    
+
     line = fgetl(fh_i);
     while ischar(line)
-      
+
       if numel(line) >= 4 && strcmp(line(1:4), 'img_')
         % parse data from input file
         parts = strsplit(line, ';');
@@ -31,18 +31,16 @@ for level = 1:numel(levels)
         parts = strsplit(coords, ',');
         x = str2double(parts{1});
         y = str2double(parts{2});
-        
+
         % print data to output file
         fprintf(fh_o, '%s, %g, %g\n', img, x, y);
       end
       line = fgetl(fh_i);
     end
-    
+
     fclose(fh_i);
     fclose(fh_o);
-    
+
   end
-  
+
 end
-
-

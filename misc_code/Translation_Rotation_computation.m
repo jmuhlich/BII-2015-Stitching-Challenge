@@ -37,5 +37,3 @@ y = y + dy;
 % err = err .* err;
 % err = sum(err(:));
 % rmse = sqrt(err/n);
-
-

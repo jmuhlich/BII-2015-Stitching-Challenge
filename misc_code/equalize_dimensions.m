@@ -58,12 +58,3 @@ if pady < 0
 end
 I = padarray(I,[pady,padx], 0, 'post');
 S = padarray(S,[pady,padx], 0, 'post');
-
-
-
-
-
-
-
-
-

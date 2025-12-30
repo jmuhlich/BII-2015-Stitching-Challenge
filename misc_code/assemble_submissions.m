@@ -16,15 +16,15 @@ for p = 1:numel(participants)
   if strcmpi(participants{p}, '.') || strcmpi(participants{p},'..')
     continue;
   end
-  
+
   % loop across the levels
   for l = 1:3
     img_fp = [fp 'Image_Tiles' filesep sprintf('Level_%d',l) filesep];
     out_fp = [img_fp 'evaluation_data' filesep];
     % skip if the image has already been created
-    if exist([out_fp participants{p} '.tif'], 'file'), continue; end 
-    
-    
+    if exist([out_fp participants{p} '.tif'], 'file'), continue; end
+
+
     csv_fp = [fp 'Participants' filesep participants{p} filesep sprintf('Level_%d',l) filesep];
     tmp = dir([csv_fp '*.csv']);
     tmp = {tmp.name}';
@@ -33,7 +33,7 @@ for p = 1:numel(participants)
       continue;
     end
     csv_fp = [csv_fp tmp{1}];
-    
+
     disp(['Assembling: ' participants{p} ' at level ' num2str(l)]);
     I = assemble_stitching_challenge_image(img_fp, csv_fp, l);
     imwrite(I, [out_fp participants{p} '.tif']);

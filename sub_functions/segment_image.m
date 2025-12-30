@@ -38,7 +38,7 @@ if remove_edge_objects
       S(stats(k).PixelIdxList) = 0;
     end
   end
-  
+
   if relabel_required
     % relabel the connected components to account for any removed objects
     S = labelmatrix(bwconncomp(S,8));

@@ -42,7 +42,7 @@ end
 % shrink image
 I = imresize(I,0.2,'nearest');
 
-I(I>0 & I<=10)=10;  
+I(I>0 & I<=10)=10;
 I(I>10 & I<=20)=20;
 I(I>20 & I<=30)=30;
 I(I>30 & I<=40)=40;
@@ -69,5 +69,3 @@ cmap(101:MAX_DISTANCE_ERROR+1,1) = c(7,1);
 % for i = 1:7
 %   cmap = vertcat(cmap, [ones(10,1).*c(i,1), ones(10,1).*c(i,2), ones(10,1).*c(i,3)]);
 % end
-
-

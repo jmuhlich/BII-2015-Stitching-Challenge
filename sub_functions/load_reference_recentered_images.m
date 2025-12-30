@@ -26,11 +26,11 @@ for i = 1:nb_ref_colonies
   fn = imgs{i};
   % load the image from disk
   ref_raw_images{i} = imread([filepath fn]);
-  
+
   % segment the image
   remove_edge_objects = false;
   S = segment_image(ref_raw_images{i}, threshold, min_object_size, remove_edge_objects);
-  
+
   % get the size of the image
   [m,n] = size(ref_raw_images{i});
   % get the pixel value in the middle of the segmented image
@@ -40,7 +40,7 @@ for i = 1:nb_ref_colonies
     ref_seg_images{i} = S;
     % get the image number from the filename
     n = str2double(fn(9:end-4));
-    
+
     % load the stage position from file
     fh = fopen([filepath sprintf('img_coords_%08d.txt',n)],'r');
     line = fgetl(fh);
@@ -50,7 +50,7 @@ for i = 1:nb_ref_colonies
     % get the stage Y position
     stageY = line(9:end);
     fclose(fh);
-    
+
     % record the stage position
     ref_colony_positions(i,:) = [str2double(stageX), str2double(stageY)];
   else

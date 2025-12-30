@@ -12,5 +12,5 @@ S = I > 500;
 S = bwareaopen(S,2000);
 S = imfill(S,'holes');
 S = bwlabel(S);
-    
+
 end
