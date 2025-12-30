@@ -9,6 +9,9 @@
 
 function run_stitching_challenge(filepath)
 
+if is_octave
+  pkg load statistics;
+
 % append a file seperator if needed
 if ~strcmpi(filepath(end),filesep), filepath = [filepath filesep]; end
 
@@ -178,6 +181,7 @@ for level = 1:numel(level_fldrs)
     if isempty(dir([Evaluation_Results_fldr participant_name '.mat'])), continue; end
 
     % load evaluation results
+    disp(['Loading: ' participant_name]);
     data = load([Evaluation_Results_fldr participant_name '.mat'], 'adj_distance_error','adj_total_area_error','adj_FN','adj_FP');
     data.adj_total_area_error = data.adj_total_area_error.*100;
 
@@ -201,10 +205,9 @@ end
 
 for level = 1:numel(level_fldrs)
   fig_size = [0 0 1 1];
-  font_size = 18;
+  font_size = 10;
   warning off % to prevent boxplot from complaining
   mainFH = figure('units','normalized','outerposition',fig_size);
-
 
   LD = cellfun(@length,D_all(:,level));
   LS = cellfun(@length,S_all(:,level));
@@ -219,12 +222,12 @@ for level = 1:numel(level_fldrs)
   xlabel('Participant')
   ylabel('Distance Error (microns)')
 %   ylim([0,nbA]);
-  ax = gca;
-  if nbA > ax.YTick(end)
-    nb = ax.YTick(end) + (ax.YTick(end) - ax.YTick(end-1));
-    set(gca, 'ylim', [0 nb])
+  yt = yticks;
+  if nbA > yt(end)
+    nb = yt(end) + (yt(end) - yt(end-1));
+    ylim([0 nb]);
   end
-  ax.XTickLabels = all_participants;
+  xticklabels(all_participants);
   set(gca, 'fontsize',font_size)
 
 
@@ -235,8 +238,7 @@ for level = 1:numel(level_fldrs)
   xlabel('Participant')
   ylabel('Percent Size Error')
   ylim([-nbB,nbB]);
-  ax = gca;
-  ax.XTickLabels = all_participants;
+  xticklabels(all_participants);
   set(gca, 'fontsize',font_size)
 
 
@@ -245,13 +247,13 @@ for level = 1:numel(level_fldrs)
   title([strrep(level_fldrs{level},'_',' ') ' False Positive Count'])
   xlabel('Participant')
   ylabel('Counts')
-  set(gca, 'xlim', [0.5 (size(FP_all,1) + 0.5)])
-  ax = gca;
-  if max_FN_FP > ax.YTick(end)
-    nb = ax.YTick(end) + (ax.YTick(end) - ax.YTick(end-1));
-    set(gca, 'ylim', [0 nb])
+  xlim([0.5 (size(FP_all,1) + 0.5)]);
+  yt = yticks;
+  if max_FN_FP > yt(end)
+    nb = yt(end) + (yt(end) - yt(end-1));
+    ylim([0 nb]);
   end
-  ax.XTickLabels = all_participants;
+  xticklabels(all_participants);
   set(gca, 'fontsize',font_size)
 
 
@@ -260,14 +262,18 @@ for level = 1:numel(level_fldrs)
   title([strrep(level_fldrs{level},'_',' ') ' False Negative Count'])
   xlabel('Participant')
   ylabel('Counts')
-  set(gca, 'xlim', [0.5 (size(FP_all,1) + 0.5)])
-  ax = gca;
-  if max_FN_FP > ax.YTick(end)
-    nb = ax.YTick(end) + (ax.YTick(end) - ax.YTick(end-1));
-    set(gca, 'ylim', [0 nb])
+  xlim([0.5 (size(FP_all,1) + 0.5)]);
+  yt = yticks;
+  if max_FN_FP > yt(end)
+    nb = yt(end) + (yt(end) - yt(end-1));
+    ylim([0 nb]);
   end
-  ax.XTickLabels = all_participants;
+  xticklabels(all_participants);
   set(gca, 'fontsize',font_size)
+
+  % Delay before calling getframe to avoid some kind of race condition that causes
+  % errors/crashes in getframe under Octave in some situations.
+  pause(3);
 
   I = getframe(mainFH);
   imwrite(I.cdata, [filepath level_fldrs{level} '_Summary.png']);
@@ -307,13 +313,16 @@ for level = 1:numel(level_fldrs)
 
   end
 end
-avg_distance_error = array2table(avg_distance_error, 'VariableNames',all_participants', 'RowNames',level_fldrs);
-std_distance_error = array2table(std_distance_error, 'VariableNames',all_participants', 'RowNames',level_fldrs);
-avg_area_error = array2table(avg_area_error, 'VariableNames',all_participants', 'RowNames',level_fldrs);
-std_area_error = array2table(std_area_error, 'VariableNames',all_participants', 'RowNames',level_fldrs);
-
-save([filepath 'summary_stats.mat'],'avg_distance_error','std_distance_error','avg_area_error','std_area_error');
-
+avg_distance_error = array2table(avg_distance_error, 'VariableNames', strcat(all_participants, '_avg_distance_error'), 'RowNames',level_fldrs);
+std_distance_error = array2table(std_distance_error, 'VariableNames', strcat(all_participants, '_std_distance_error'), 'RowNames',level_fldrs);
+avg_area_error = array2table(avg_area_error, 'VariableNames', strcat(all_participants, '_avg_area_error'), 'RowNames',level_fldrs);
+std_area_error = array2table(std_area_error, 'VariableNames', strcat(all_participants, '_std_area_error'), 'RowNames',level_fldrs);
+t = horzcat(avg_distance_error, std_distance_error, avg_area_error, std_area_error);
+spath = [filepath 'summary_stats.csv'];
+if is_octave
+  table2csv(t, spath);
+else
+  writetable(t, spath);
 
 
 end
