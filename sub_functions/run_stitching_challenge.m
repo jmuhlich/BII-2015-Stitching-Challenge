@@ -13,7 +13,6 @@ function run_stitching_challenge(filepath)
 if ~strcmpi(filepath(end),filesep), filepath = [filepath filesep]; end
 
 % Define the Required constants
-THRESHOLD = 500; % threshold used to segment stitched images
 MIN_OBJECT_SIZE = 2000; % minimum object size (colonies)
 P2M = 0.658; % pixel to micron ratio
 % heatmap generation constant
@@ -25,6 +24,10 @@ ENABLE_OVERWRITE = false; % controls whether to overwrite existing entries
 % check that the folder structure contains 3 folders named:
 level_fldrs = {'Level_1','Level_2','Level_3'};
 
+% threshold used to segment stitched images, per level
+% NOTE: These are the values for the 10% overlap dataset.
+level_thresholds = {592, 544, 482};
+
 for i = 1:numel(level_fldrs)
   if ~exist([filepath level_fldrs{i}],'dir')
     error(['missing ' level_fldrs{i} ' folder in challenge directory']);
@@ -35,6 +38,7 @@ end
 for level = 1:numel(level_fldrs)
   % create filepath to the current level folder
   level_fldr = [filepath level_fldrs{level} filesep];
+  threshold = level_thresholds{level};
 
   % validate that the current level folder has the proper folder structure
   % check the mandatory folders, throwing an error if missing
@@ -78,7 +82,7 @@ for level = 1:numel(level_fldrs)
 
     % segment the stitched image into a labeled image
     remove_edge_objects = true;
-    S = segment_image(I, THRESHOLD, MIN_OBJECT_SIZE, remove_edge_objects);
+    S = segment_image(I, threshold, MIN_OBJECT_SIZE, remove_edge_objects);
 
     % write the labeled segmented image to the Evaluation_Results_fldr
     imwrite(S, [Evaluation_Results_fldr participant_name '-segmented.tif']);
@@ -87,7 +91,7 @@ for level = 1:numel(level_fldrs)
     [stitched_raw_images, stitched_seg_images, stitched_colony_positions] = create_comparison_colony_images_cellarray(I,S, P2M);
 
     % load the individual reference colony images into a cell array
-    [ref_raw_images, ref_seg_images, ref_colony_positions] = load_reference_recentered_images(Reference_Colony_Images_fldr, THRESHOLD, MIN_OBJECT_SIZE);
+    [ref_raw_images, ref_seg_images, ref_colony_positions] = load_reference_recentered_images(Reference_Colony_Images_fldr, threshold, MIN_OBJECT_SIZE);
 
     % At this point the stitched image from the participant has been cut into a cell array of individual colony images.
     % These individual colony images are then compared against the set of reference individual colony images loaded from
