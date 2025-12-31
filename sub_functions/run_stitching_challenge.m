@@ -11,6 +11,7 @@ function run_stitching_challenge(filepath)
 
 if is_octave
   pkg load statistics;
+end
 
 % append a file seperator if needed
 if ~strcmpi(filepath(end),filesep), filepath = [filepath filesep]; end
@@ -323,6 +324,7 @@ if is_octave
   table2csv(t, spath);
 else
   writetable(t, spath);
+end
 
 
 end
