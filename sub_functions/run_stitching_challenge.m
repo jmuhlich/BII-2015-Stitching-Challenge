@@ -10,6 +10,7 @@
 function run_stitching_challenge(filepath)
 
 if is_octave
+  pkg load image;
   pkg load statistics;
 end
 

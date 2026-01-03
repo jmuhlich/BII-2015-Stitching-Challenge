@@ -20,7 +20,7 @@ I(:,1:(1+buff)) = 0;
 I(:,(end-buff):end) = 0;
 I(1:(1+buff),:) = 0;
 I((end-buff):end,:) = 0;
-S1 = imdilate(S, strel('disk',1));
+S1 = imdilate(S, strel('disk',1,0));
 stats = regionprops(S1, I, 'PixelValues', 'PixelIdxList');
 for k = 1:numel(stats)
   if any(stats(k).PixelValues == 0)

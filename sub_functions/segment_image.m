@@ -27,7 +27,7 @@ if remove_edge_objects
   I(1:(1+buff),:) = 0;
   I((end-buff):end,:) = 0;
   % dilate the objects by 1 pixel
-  S1 = imdilate(S, strel('disk',1));
+  S1 = imdilate(S, strel('disk',1,0));
   % find any objects that overlap a zero pixel in the image
   stats = regionprops(S1, I, 'PixelValues', 'PixelIdxList');
   % delete and objects that are within 5 of the boarder of an image tile
