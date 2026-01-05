@@ -120,7 +120,7 @@ for level = 1:numel(level_fldrs)
     % clear the stitched and labeled images from the workspace so they are not saved to disk redundantly
     clear I S;
     % save the workspace for later evaluation of the results
-    save([Evaluation_Results_fldr participant_name '.mat']);
+    save([Evaluation_Results_fldr participant_name '.mat'], '-v7');
 
     % create distance error heatmap
     [I,cmap] = generate_distance_error_heatmap(stitched_colony_positions,stitched_colony_ind,stitched_seg_images,distance_error,P2M,MAX_DISTANCE_ERROR);
